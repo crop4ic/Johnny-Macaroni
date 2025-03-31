@@ -1,0 +1,502 @@
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    position: relative;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+}
+
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Демонические элементы */
+.demonic-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+body.light-theme .demonic-elements {
+    opacity: 0.3;
+}
+
+.castle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(15, 0, 0, 0.2), rgba(15, 0, 0, 0.2)),
+                url('./images/hell.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 1;
+    animation: hellGlow 10s infinite;
+    transition: all 0.5s ease;
+    transform: translateZ(0);
+    will-change: transform;
+    z-index: 0;
+}
+
+body.light-theme .castle {
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)),
+                url('./images/heaven.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    animation: heavenGlow 10s infinite;
+}
+
+/* Эффект божественного сияния */
+body.light-theme .castle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.8), transparent 60%),
+        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.9), transparent 40%);
+    animation: heavenlyLight 8s infinite;
+    transform: translateZ(0);
+    will-change: transform;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Лучи света из левого верхнего угла */
+body.light-theme .castle::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: conic-gradient(from -45deg at 20% 20%,
+        transparent 0deg,
+        rgba(255, 255, 255, 0) 10deg,
+        rgba(255, 255, 255, 0.1) 20deg,
+        transparent 30deg,
+        transparent 40deg,
+        rgba(255, 255, 255, 0.1) 50deg,
+        transparent 60deg,
+        rgba(255, 255, 255, 0.05) 70deg,
+        rgba(255, 255, 255, 0.1) 80deg,
+        transparent 90deg,
+        transparent 360deg
+    );
+    animation: topLeftLight 30s linear infinite;
+    z-index: 2;
+    opacity: 0.7;
+    transform-origin: 20% 20%;
+}
+
+@keyframes topLeftLight {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes heavenlyLight {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* Дополнительное сияние для усиления эффекта */
+body.light-theme .castle::before {
+    box-shadow: 
+        inset 0 0 100px rgba(255, 255, 255, 0.5),
+        0 0 50px rgba(255, 255, 255, 0.3);
+}
+
+.ash {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 100, 0, 0.6);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255, 50, 0, 0.9);
+    animation: ashFall linear infinite;
+}
+
+/* Ангельские перья */
+body.light-theme .ash {
+    width: 15px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
+                0 0 30px rgba(255, 215, 0, 0.5);
+    clip-path: path('M0,0 C50,25 50,75 0,100 C50,75 100,75 100,100 C100,75 100,25 100,0 C100,25 50,25 0,0');
+    animation: featherFall linear infinite;
+}
+
+@keyframes featherFall {
+    0% {
+        transform: translateY(-100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(var(--wind-drift)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes hellGlow {
+    0%, 100% {
+        filter: brightness(1) contrast(1.1) saturate(1.2);
+    }
+    50% {
+        filter: brightness(1.15) contrast(1.2) saturate(1.3);
+    }
+}
+
+@keyframes heavenGlow {
+    0%, 100% {
+        filter: brightness(1.1) contrast(1) saturate(1);
+    }
+    50% {
+        filter: brightness(1.2) contrast(1.1) saturate(1.1) hue-rotate(10deg);
+    }
+}
+
+@keyframes ashFall {
+    0% {
+        transform: translateY(-100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(100vh) translateX(var(--wind-drift));
+        opacity: 0;
+    }
+}
+
+body.light-theme .demonic-elements {
+    opacity: 1;
+}
+
+/* Добавляем разные задержки и эффект ветра для частиц */
+.ash:nth-child(1) { --wind-drift: 100px; animation-delay: 0s; left: 10%; animation-duration: 12s; }
+.ash:nth-child(2) { --wind-drift: 120px; animation-delay: 2s; left: 20%; animation-duration: 15s; }
+.ash:nth-child(3) { --wind-drift: 150px; animation-delay: 4s; left: 30%; animation-duration: 18s; }
+.ash:nth-child(4) { --wind-drift: 90px; animation-delay: 1s; left: 40%; animation-duration: 14s; }
+.ash:nth-child(5) { --wind-drift: 130px; animation-delay: 3s; left: 50%; animation-duration: 16s; }
+.ash:nth-child(6) { --wind-drift: 160px; animation-delay: 5s; left: 60%; animation-duration: 19s; }
+.ash:nth-child(7) { --wind-drift: 110px; animation-delay: 2s; left: 70%; animation-duration: 15s; }
+.ash:nth-child(8) { --wind-drift: 140px; animation-delay: 4s; left: 80%; animation-duration: 17s; }
+.ash:nth-child(9) { --wind-drift: 95px; animation-delay: 1s; left: 90%; animation-duration: 13s; }
+.ash:nth-child(10) { --wind-drift: 125px; animation-delay: 3s; left: 95%; animation-duration: 16s; }
+
+/* Навбар */
+.navbar {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.light-theme .navbar {
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+body.light-theme .navbar-brand {
+    color: #000 !important;
+    text-shadow: none;
+}
+
+.navbar-brand i {
+    margin-right: 10px;
+    color: #ffd700;
+}
+
+.nav-link {
+    color: #fff !important;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+body.light-theme .nav-link {
+    color: #000 !important;
+}
+
+body.light-theme .nav-link:hover {
+    color: #ff6b00 !important;
+}
+
+/* Карточки */
+.card {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.light-theme .card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.light-theme .card-header {
+    background: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+body.light-theme .card-title {
+    color: #ff6b00;
+    text-shadow: none;
+}
+
+#chapters-list {
+    max-height: 600px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.list-group-item {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.light-theme .list-group-item {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+body.light-theme .list-group-item:hover {
+    background: rgba(255, 107, 0, 0.1);
+}
+
+body.light-theme .list-group-item.active {
+    background: rgba(255, 107, 0, 0.2);
+    border-color: #ff6b00;
+    color: #ff6b00;
+}
+
+#chapter-content {
+    min-height: 500px;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+body.light-theme #chapter-content {
+    color: #000;
+    text-shadow: none;
+}
+
+/* Стилизация скроллбара */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.7);
+}
+
+body.light-theme ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme ::-webkit-scrollbar-thumb {
+    background: rgba(255, 107, 0, 0.5);
+}
+
+body.light-theme ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 107, 0, 0.7);
+}
+
+/* Дополнительные лучи света */
+body.light-theme .castle::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%,
+        transparent 0deg,
+        rgba(255, 255, 255, 0) 10deg,
+        rgba(255, 255, 255, 0.1) 20deg,
+        transparent 30deg,
+        transparent 40deg,
+        rgba(255, 255, 255, 0.1) 50deg,
+        transparent 60deg,
+        transparent 70deg,
+        rgba(255, 255, 255, 0.1) 80deg,
+        transparent 90deg,
+        transparent 360deg
+    );
+    animation: rotatingLight 30s linear infinite;
+    z-index: 2;
+}
+
+@keyframes rotatingLight {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Анимированный фон */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    transition: all 0.5s ease;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Тёмная тема - эффект лавы */
+.animated-background {
+    background: linear-gradient(45deg,
+        #ff0000,
+        #ff4500,
+        #8b0000,
+        #800000,
+        #8b0000,
+        #ff4500,
+        #ff0000
+    );
+    background-size: 400% 400%;
+    animation: lavaFlow 15s ease infinite;
+    filter: blur(100px) brightness(0.7);
+    opacity: 0.5;
+}
+
+/* Светлая тема - эффект небесного сияния */
+body.light-theme .animated-background {
+    background: linear-gradient(45deg,
+        #87CEEB,
+        #E6E6FA,
+        #FFE4E1,
+        #F0F8FF,
+        #E6E6FA,
+        #87CEEB
+    );
+    background-size: 400% 400%;
+    animation: heavenlyFlow 15s ease infinite;
+    filter: blur(100px) brightness(1.2);
+    opacity: 0.4;
+}
+
+@keyframes lavaFlow {
+    0% {
+        background-position: 0% 50%;
+        filter: blur(100px) brightness(0.7) saturate(1.2);
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: blur(100px) brightness(0.8) saturate(1.4);
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: blur(100px) brightness(0.7) saturate(1.2);
+    }
+}
+
+@keyframes heavenlyFlow {
+    0% {
+        background-position: 0% 50%;
+        filter: blur(100px) brightness(1.2) saturate(1);
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: blur(100px) brightness(1.3) saturate(1.1);
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: blur(100px) brightness(1.2) saturate(1);
+    }
+}
+
+/* Оптимизация производительности для всех анимаций */
+@media screen and (prefers-reduced-motion: no-preference) {
+    .castle,
+    .animated-background,
+    .ash,
+    body.light-theme .castle::before,
+    body.light-theme .castle::after {
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+    }
+} 
