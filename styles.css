@@ -503,9 +503,11 @@ body.light-theme .animated-background {
 
 /* Стили для эффекта книги */
 .book-container {
-    perspective: 2000px;
     position: relative;
-    min-height: 500px;
+    width: 100%;
+    height: 600px;
+    perspective: 2000px;
+    overflow: hidden;
 }
 
 .book-page {
@@ -515,6 +517,11 @@ body.light-theme .animated-background {
     transform-style: preserve-3d;
     transition: transform 1.5s;
     transform-origin: left center;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    padding: 20px;
 }
 
 body.light-theme .book-page {
@@ -533,6 +540,9 @@ body.light-theme .book-page {
     backface-visibility: hidden;
     transition: opacity 0.5s;
     opacity: 0;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .book-page-content.show {
@@ -551,7 +561,7 @@ body.light-theme .book-page {
 
 /* Стили для кнопки перелистывания */
 #next-page {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     right: 20px;
     padding: 10px 20px;
@@ -561,6 +571,7 @@ body.light-theme .book-page {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s;
+    z-index: 10;
 }
 
 #next-page:hover {
