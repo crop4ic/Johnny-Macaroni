@@ -49,6 +49,16 @@ function displayChapter(chapter) {
             item.classList.add('active');
         }
     });
+
+    // Обновляем состояние кнопки следующей главы
+    const nextChapterBtn = document.getElementById('next-chapter-btn');
+    const currentIndex = bookData.chapters.findIndex(c => c.id === chapter.id);
+    if (currentIndex < bookData.chapters.length - 1) {
+        nextChapterBtn.style.display = 'block';
+        nextChapterBtn.onclick = () => displayChapter(bookData.chapters[currentIndex + 1]);
+    } else {
+        nextChapterBtn.style.display = 'none';
+    }
 }
 
 // Функция для переключения темы
@@ -64,42 +74,6 @@ let fontSize = 1.1;
 function toggleFontSize() {
     fontSize = fontSize === 1.1 ? 1.3 : 1.1;
     document.getElementById('chapter-content').style.fontSize = `${fontSize}rem`;
-}
-
-// Функция для перелистывания страницы
-function turnPage() {
-    const bookPage = document.querySelector('.book-page');
-    const pageContent = document.querySelector('.book-page-content');
-    
-    // Добавляем класс для анимации перелистывания
-    bookPage.classList.add('page-turn');
-    
-    // После завершения анимации
-    setTimeout(() => {
-        // Убираем класс анимации
-        bookPage.classList.remove('page-turn');
-        
-        // Обновляем содержимое страницы
-        pageContent.classList.remove('show');
-        setTimeout(() => {
-            // Здесь можно загрузить новое содержимое
-            pageContent.classList.add('show');
-        }, 100);
-    }, 1500);
-}
-
-// Обработчик для кнопки перелистывания
-document.getElementById('next-page').addEventListener('click', turnPage);
-
-// Функция загрузки главы
-function loadChapter(chapterId) {
-    const pageContent = document.querySelector('.book-page-content');
-    pageContent.classList.remove('show');
-    
-    // Здесь можно добавить загрузку нового содержимого
-    setTimeout(() => {
-        pageContent.classList.add('show');
-    }, 500);
 }
 
 // Инициализация при загрузке страницы
